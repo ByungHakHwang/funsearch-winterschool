@@ -15,6 +15,8 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
 
 2. Recommend to use Docker and VSCode.
 
+3. Create your wandb API at https://wandb.ai/.
+
 ### On AWS server
 
 1. Connect the server via ssh.
