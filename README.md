@@ -4,37 +4,68 @@
 This repository is for Team DM on `2025 Winter School on Math+AI`.
 
 We aim to utilize the code-agent *FunSearch* to solve various problems in discrete math.
-This repository is forked from `https://github.com/kitft/funsearch.git`.
-
-A high-performance implementation of program search using LLMs, built for discovering mathematical algorithms and solving optimization problems. We essentially run a genetic programming algorithm with LLMs as the mutation/breeding operator.
-
-This funsearch repo adds parallel processing, updated tooling, and many more features compared to the original *funsearch*. It should be relatively user-friendly.
-
-## Features
-
-### Modified to support non-priority-function program search
-- Search for any type signature, not just priority functions. E.g., searching for a bool-valued `is_member` function, or a matrix multiplication algorithm.
-- Runs on multiple inputs at once (e.g. n=8,9,10 for cap sets)
-
-### Integration with Weights & Biases
-- Real-time monitoring and logging/graphing
-
-### Multi-Model Support
-- Use any combination of modern LLMs including Claude/GPT-4o/Gemini/Mistral/Deepseek/etc through direct APIs or OpenRouter
-- Use multiple models in the same run:  multiple models with different temperatures, etc
-- Adaptive sampling rates based on LLM/CPU/evaluator capacity
-
-### Parallel Processing
-- Runs multiple program evaluations simultaneously across CPU cores
-- Makes asynchronous API calls to sampler/evaluator/database agents
-
-### Safety Features
-- Sandboxed code execution (container or process-based), code checked before runtime for safety. NB - not fully 'safe' when multithreaded.
-- Model validation before search starts/graceful handling of API failures
-
-For implementation details and example problems, see the examples directory, particularly the section on *Adding additional programs*. Remember to modify the system prompt and user prompts in the spec file!
+A part of this repository is forked from `https://github.com/kitft/funsearch.git`. (You can find a detail document for FunSearch in the github repository.)
 
 
+## Installation and Setup
+
+### On AWS server
+
+1. Connect the server via ssh.
+  ```
+  ssh <your_id>@<server_ip>
+  ```
+
+2. Clone the repository and navigate to the project directory
+  ```
+  git clone https://github.com/kitft/funsearch.git
+  cd funsearch
+  ```
+
+3. Set your API keys by creating a `.env` file in the project root (this file will be automatically gitignored):
+   ```
+   # Create a .env file in the project root
+   touch .env
+   
+   # Add your API keys to the .env file:
+   MISTRAL_API_KEY=<your_key_here>
+   GOOGLE_API_KEY=<your_key_here>
+   OPENAI_API_KEY=<your_key_here>
+   ANTHROPIC_API_KEY=<your_key_here>
+   OPENROUTER_API_KEY=<your_key_here>
+   WANDB_API_KEY=<your_wandb_key_here>
+   DEEPINFRA_API_KEY=<your_deepinfra_key_here>
+   ```
+
+4. Make the following directories.
+    ```
+    mkdir -p ~/funsearch/data
+    mkdir -p ~/funsearch/examples
+    ```
+
+5. Build the docker image, and run the container.
+    ```
+    docker build . -t funsearch
+    source .env
+    docker run -it -v ./data:/workspace/data -v ./examples:/workspace/examples --env-file .env funsearch
+    ```
+
+6. (Example) Run *FunSearch* as follows:
+    ```
+    funsearch runasync examples/cap_set_spec.py 8 \
+      --model gpt-4o-mini \
+      --samplers 2 \
+      --evaluators 7 \
+      --islands 4 \
+      --duration 240 \
+      --reset 7200 \
+      --iterations -1 \
+      --sandbox ExternalProcessSandbox \
+      --temperature 1.0 \
+      --token_limit 2000000 \
+      --relative_cost_of_input_tokens 1.0 \
+      --output_path ./data
+    ```
 
 
 
