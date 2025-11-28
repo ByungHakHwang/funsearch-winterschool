@@ -47,8 +47,8 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
 
 4. Make the following directories.
     ```
-    mkdir -p ~/funsearch/data
-    mkdir -p ~/funsearch/examples
+    mkdir -p ~/funsearch-winterschool/data
+    mkdir -p ~/funsearch-winterschool/examples
     ```
 
 5. Build the docker image, and run the container.
