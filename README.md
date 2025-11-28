@@ -68,8 +68,8 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
       --samplers 2 \
       --evaluators 7 \
       --islands 4 \
-      --duration 240 \
-      --reset 7200 \
+      --duration 200 \
+      --reset 60 \
       --iterations -1 \
       --sandbox ExternalProcessSandbox \
       --temperature 1.0 \
