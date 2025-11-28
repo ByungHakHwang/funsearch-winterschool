@@ -13,12 +13,13 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
 
 1. Prepare your laptop.
 
-2. (If you will use your own server) Check to be able to use Docker and git.
-(If you will use AWS servers) Check your ssh connection.
+2. (If you are using your own server) Verify that Docker and Git are installed and working.
+   (If you are using AWS servers) Verify that your SSH connection works.
+   If your OS is Windows, OpenSSH should be available.
 
-3. Recommend to use VSCode.
+3. It is recommended to use VS Code.
 
-4. Create your wandb API at https://wandb.ai/.
+4. Create your W&B API key at https://wandb.ai/.
 
 ### On AWS server
 
