@@ -27,7 +27,7 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
 2. Clone the repository and navigate to the project directory
   ```
   git clone https://github.com/ByungHakHwang/funsearch-winterschool.git
-  cd funsearch
+  cd funsearch-winterschool
   ```
 
 3. Set your API keys by creating a `.env` file in the project root (this file will be automatically gitignored):
