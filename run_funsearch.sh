@@ -2,7 +2,7 @@
 
 mkdir -p ~/funsearch/data
 mkdir -p ~/funsearch/data/scores ~/funsearch/data/graphs ~/funsearch/data/backups
-mkdir -p ~/funsearch/examples
+mkdir -p ~/funsearch/problems
 
 # 현재 사용자 정보
 IMAGE_NAME="funsearch:$(whoami)"
