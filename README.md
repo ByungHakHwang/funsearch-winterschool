@@ -7,7 +7,7 @@ We aim to utilize the code-agent *FunSearch* to solve various problems in discre
 A part of this repository is forked from `https://github.com/kitft/funsearch.git`. (You can find a detail document for FunSearch in the github repository.)
 
 
-## Installation and Setup
+## Installation and Quick start
 
 ### Before installation
 
@@ -35,20 +35,37 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
   ```
 
 3. Set your API keys by creating a `.env` file in the project root (this file will be automatically gitignored):
-   ```
-   # Create a .env file in the project root
-   touch .env
-   
-   # Add your API keys to the .env file:
-   MISTRAL_API_KEY=<your_key_here>
-   GOOGLE_API_KEY=<your_key_here>
-   OPENAI_API_KEY=<your_key_here>
-   ANTHROPIC_API_KEY=<your_key_here>
-   OPENROUTER_API_KEY=<your_key_here>
-   WANDB_API_KEY=<your_wandb_key_here>
-   DEEPINFRA_API_KEY=<your_deepinfra_key_here>
-   ```
+  ```
+  # Create a .env file in the project root
+  touch .env
+  
+  # Add your API keys to the .env file:
+  MISTRAL_API_KEY=<your_key_here>
+  GOOGLE_API_KEY=<your_key_here>
+  OPENAI_API_KEY=<your_key_here>
+  ANTHROPIC_API_KEY=<your_key_here>
+  OPENROUTER_API_KEY=<your_key_here>
+  WANDB_API_KEY=<your_wandb_key_here>
+  DEEPINFRA_API_KEY=<your_deepinfra_key_here>
+  ```
 
+4. 권한 부여
+  ```
+  chmod +x run_funsearch.sh
+  ```
+
+5. Build the docker image, and run the container by the script.
+  ```
+  ./run_funsearch.sh
+  ```
+
+6. Run *FunSearch* with the default setting.
+  ```
+  ./run.sh
+  ```
+
+
+<!-- 
 4. Make the following directories.
     ```
     mkdir -p ~/funsearch/data
@@ -77,43 +94,37 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
       --token_limit 2000000 \
       --relative_cost_of_input_tokens 1.0 \
       --output_path ./data
-    ```
+    ``` -->
 
 ## Running the search
-`funsearch runasync` takes two arguments and several options:
+`run.sh` takes three arguments:
 
-1. `SPEC_FILE`: A Python module that provides the basis of the LLM prompt as well as the evaluation metric.
-   - Example: See `examples/cap_set_spec.py`
+1. `SPEC`: A detailed specification for *FunSearch*. Your spec file contains some of the following options:
+- `SAMPLERS`: Number of sampler threads (default: 2)
+- `EVALUATORS`: Number of evaluator processes (default: 7, max: 15)
+- `ISLANDS`: Number of islands for genetic algorithm (default: 4)
+- `DURATION`: Run duration in seconds (default: 60)
+- `RESET`: Time between island resets in seconds (default: 25)
+- `TEMPERATURE`: LLM temperature (default: 1.0)
+- `RELATIVE_COST`: Cost ratio of input/output tokens (default: 1.0)
+- `TOKEN_LIMIT`: Maximum number of output tokens (default: 2000000)
 
-2. `INPUTS`: Can be one of the following:
+
+2. `PROBLEM_FILE`: A Python module that provides the basis of the LLM prompt as well as the evaluation metric.
+   - Example: See `problems/cap_set_spec.py`
+
+3. `ARGUMENT`: Can be one of the following:
    - A filename ending in .json or .pickle
    - Comma-separated input data
    - The files are expected to contain a list with at least one element
    - Elements will be passed to the `solve()` method one by one
    - Programs will be evaluated based on an aggregated score, which is the sum of the scores for each input. Each individual best score per input will be logged to wandb.
 
-Examples of valid INPUTS:
+Examples of valid ARGUMENT:
 - 8
 - 8,9,10
 - ./examples/cap_set_input_data.json
-
-Key options:
-- `--model`: The LLM model to use (default: "codestral-latest","mistralai/codestral-mamba")
-- `--samplers`: Number of sampler threads (default: 15)
-- `--evaluators`: Number of evaluator processes (default: CPU cores - 1)
-- `--islands`: Number of islands for genetic algorithm (default: 10)
-- `--duration`: Run duration in seconds (default: 3600)
-- `--team`: Wandb team/entity for logging (optional)
-- `--name`: Wandb ID for run
-- `--tag`: Wandb tag for run
-- `--token_limit`: Maximum number of output tokens (default: None)# add this if you want to limit by number of tokens used
-- `--relative_cost_of_input_tokens`: Cost ratio of input/output tokens (default: 1.0)# add this if you want to limit by number of tokens used. Typically this number will be less than one.
-
-Example command:
-```bash
-funsearch runasync /workspace/examples/cap_set_spec.py 8 --sandbox ExternalProcessSandbox --model mistralai/codestral-mamba --samplers 20 --islands 10 --duration 3000 --team <team> --tag <tag> --token_limit 1000000 --relative_cost_of_input_tokens 0.5
-```
-
+<!-- 
 ### Weights & Biases Integration
 
 The search progress is automatically logged to Weights & Biases (wandb). You can specify a team/entity for logging in two ways:
@@ -181,7 +192,7 @@ Here are the available run parameters:
 - `--team`: Wandb team/entity for logging (optional)
 - `--envfile`: Path to a .env file to load environment variables from. This is only useful if you are running the search outside of a container.
 - `--token_limit`: Maximum number of output tokens (default: None)# add this if you want to limit by number of tokens used
-- `--relative_cost_of_input_tokens`: Cost ratio of input/output tokens (default: 1.0)# add this if you want to limit by number of tokens used. Typically this number will be less than one.
+- `--relative_cost_of_input_tokens`: Cost ratio of input/output tokens (default: 1.0)# add this if you want to limit by number of tokens used. Typically this number will be less than one. -->
 
 ## Example
 Here, we are searching for the algorithm to find maximum cap sets for dimension 11.
