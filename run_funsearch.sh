@@ -29,6 +29,10 @@ else
     echo "Warning: .env file not found"
 fi
 
+# 권한 설정
+chmod +x run_experiment.sh
+chmod +x run.sh
+
 # 컨테이너 실행
 echo "Starting funsearch container for user $(whoami)..."
 echo "Working directory: /home/$(whoami)/workspace"
