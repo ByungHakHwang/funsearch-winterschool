@@ -40,13 +40,11 @@ A part of this repository is forked from `https://github.com/kitft/funsearch.git
   touch .env
   
   # Add your API keys to the .env file:
+  OPENAI_API_KEY=<your_key_here>
+  WANDB_API_KEY=<your_wandb_key_here>
   MISTRAL_API_KEY=<your_key_here>
   GOOGLE_API_KEY=<your_key_here>
-  OPENAI_API_KEY=<your_key_here>
   ANTHROPIC_API_KEY=<your_key_here>
-  OPENROUTER_API_KEY=<your_key_here>
-  WANDB_API_KEY=<your_wandb_key_here>
-  DEEPINFRA_API_KEY=<your_deepinfra_key_here>
   ```
 
 4. Make the script executable
